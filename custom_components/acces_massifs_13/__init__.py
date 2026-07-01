@@ -155,7 +155,7 @@ async def _async_register_lovelace_resources(hass: HomeAssistant) -> None:
         await resources.async_load()
 
     # Load version dynamically from integration manifest
-    version = "1.0.7"
+    version = "1.0.8"
     try:
         integration = await async_get_integration(hass, DOMAIN)
         version = integration.version

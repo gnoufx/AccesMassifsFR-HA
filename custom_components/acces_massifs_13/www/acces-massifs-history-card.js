@@ -115,7 +115,16 @@ class AccesMassifsHistoryCard extends LitElement {
 
   _getAvailableYears() {
     const history = this._getHistory();
-    return Object.keys(history).map(Number).sort();
+    const years = new Set();
+    for (const key of Object.keys(history)) {
+      if (key.length >= 4) {
+        const year = parseInt(key.substring(0, 4), 10);
+        if (!isNaN(year)) {
+          years.add(year);
+        }
+      }
+    }
+    return Array.from(years).sort((a, b) => a - b);
   }
 
   _getSortedMassifs() {
@@ -156,12 +165,18 @@ class AccesMassifsHistoryCard extends LitElement {
 
   _getLevelForCell(yearData, dateKey, massifId) {
     if (!yearData || !yearData[dateKey] || !yearData[dateKey][massifId]) return 0;
-    return yearData[dateKey][massifId][0] || 0;
+    const item = yearData[dateKey][massifId];
+    if (Array.isArray(item)) return item[0] || 0;
+    if (typeof item === 'object') return item.level || 0;
+    return 0;
   }
 
   _getProcedureForCell(yearData, dateKey, massifId) {
     if (!yearData || !yearData[dateKey] || !yearData[dateKey][massifId]) return 0;
-    return yearData[dateKey][massifId][1] || 0;
+    const item = yearData[dateKey][massifId];
+    if (Array.isArray(item)) return item[1] || 0;
+    if (typeof item === 'object') return item.procedure || 0;
+    return 0;
   }
 
   // --- Stats for selected massif ---
@@ -272,6 +287,22 @@ class AccesMassifsHistoryCard extends LitElement {
     }
   }
 
+  _handleHeatmapScroll(e) {
+    const target = e.target;
+    const other = this.shadowRoot.querySelector('.sparkline-scroll');
+    if (other && Math.abs(other.scrollLeft - target.scrollLeft) > 1) {
+      other.scrollLeft = target.scrollLeft;
+    }
+  }
+
+  _handleSparklineScroll(e) {
+    const target = e.target;
+    const other = this.shadowRoot.querySelector('.heatmap-scroll');
+    if (other && Math.abs(other.scrollLeft - target.scrollLeft) > 1) {
+      other.scrollLeft = target.scrollLeft;
+    }
+  }
+
   _onCellMouseEnter(e, dateKey, massifName, level) {
     const tooltip = this.shadowRoot.querySelector('.tooltip');
     if (!tooltip) return;
@@ -347,13 +378,22 @@ class AccesMassifsHistoryCard extends LitElement {
     const history = this._getHistory();
     const availableYears = this._getAvailableYears();
     const selectedYear = this._selectedYear || this.config.year;
-    const yearData = history[String(selectedYear)] || {};
+    
+    // Filter history for the selected year
+    const yearData = {};
+    const yearPrefix = String(selectedYear);
+    for (const [dateKey, value] of Object.entries(history)) {
+      if (dateKey.startsWith(yearPrefix)) {
+        yearData[dateKey] = value;
+      }
+    }
+    
     const dateKeys = this._generateDateKeys(selectedYear);
     const sortedMassifs = this._getSortedMassifs();
     const hasData = Object.keys(yearData).length > 0;
 
     // Ensure selected year is in available years for pills
-    const yearsToShow = [...new Set([...availableYears, selectedYear])].sort();
+    const yearsToShow = [...new Set([...availableYears, selectedYear])].sort((a, b) => a - b);
 
     return html`
       <div class="card-container" @click=${this._onCardClick}>
@@ -384,7 +424,7 @@ class AccesMassifsHistoryCard extends LitElement {
         ` : html`
           <!-- Month Headers + Heatmap -->
           <div class="heatmap-wrapper">
-            <div class="heatmap-scroll">
+            <div class="heatmap-scroll" @scroll=${this._handleHeatmapScroll}>
               <!-- Month header row -->
               <div class="month-row">
                 <div class="label-spacer"></div>
@@ -461,7 +501,7 @@ class AccesMassifsHistoryCard extends LitElement {
                   <span class="sparkline-label-top">100%</span>
                   <span class="sparkline-label-bottom">0%</span>
                 </div>
-                <div class="sparkline-scroll">
+                <div class="sparkline-scroll" @scroll=${this._handleSparklineScroll}>
                   <svg
                     class="sparkline-svg"
                     viewBox="0 0 ${svgWidth} ${svgHeight}"
@@ -487,7 +527,7 @@ class AccesMassifsHistoryCard extends LitElement {
                     />
                   </svg>
                   <!-- Month labels below sparkline -->
-                  <div class="sparkline-months">
+                  <div class="sparkline-months" style="width: ${svgWidth}px;">
                     ${MONTH_NAMES.map((name, i) => html`
                       <div class="sparkline-month" style="left: ${MONTH_OFFSETS[i] * 5}px">${name}</div>
                     `)}
@@ -520,6 +560,7 @@ class AccesMassifsHistoryCard extends LitElement {
       :host {
         display: block;
         font-family: var(--paper-font-common-typography_-_font-family, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+        container-type: inline-size;
       }
 
       .card-container {
@@ -646,10 +687,16 @@ class AccesMassifsHistoryCard extends LitElement {
         display: flex;
         align-items: flex-end;
         margin-bottom: 6px;
+        width: max-content;
+        min-width: 100%;
       }
       .label-spacer {
+        position: sticky;
+        left: 0;
+        z-index: 5;
         min-width: 120px;
         flex-shrink: 0;
+        background: var(--ha-card-background, var(--card-background-color, rgba(30, 30, 30, 0.95)));
       }
       .months-container {
         position: relative;
@@ -672,6 +719,8 @@ class AccesMassifsHistoryCard extends LitElement {
         cursor: pointer;
         border-radius: 3px;
         transition: opacity 0.3s ease, filter 0.3s ease, background 0.3s ease;
+        width: max-content;
+        min-width: 100%;
       }
       .heatmap-row:hover {
         background: var(--primary-background-color, rgba(255, 255, 255, 0.03));
@@ -783,8 +832,11 @@ class AccesMassifsHistoryCard extends LitElement {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-width: 30px;
-        padding: 2px 0;
+        min-width: 120px;
+        max-width: 120px;
+        padding: 2px 8px 2px 0;
+        text-align: right;
+        box-sizing: border-box;
       }
       .sparkline-label-top,
       .sparkline-label-bottom {
@@ -902,6 +954,40 @@ class AccesMassifsHistoryCard extends LitElement {
       .empty-icon {
         font-size: 24px;
       }
+
+      /* Container queries for 3-column layout compatibility */
+      @container (max-width: 400px) {
+        .card-container {
+          padding: 12px;
+        }
+        .header {
+          padding: 10px 12px;
+          margin-bottom: 12px;
+        }
+        .header-title {
+          font-size: 15px;
+        }
+        .year-pill {
+          padding: 3px 10px;
+          font-size: 12px;
+        }
+        .detail-bar {
+          padding: 8px 12px;
+          gap: 10px;
+        }
+        .detail-name {
+          font-size: 13px;
+        }
+        .detail-stats {
+          font-size: 11px;
+        }
+        .legend {
+          gap: 10px;
+        }
+        .legend-text {
+          font-size: 10px;
+        }
+      }
     `;
   }
 }
@@ -939,7 +1025,10 @@ class AccesMassifsHistoryCardEditor extends LitElement {
     const configValue = target.configValue;
     if (!configValue) return;
 
-    let newValue = ev.detail ? ev.detail.value : target.value;
+    let newValue = ev.detail && typeof ev.detail === 'object' && 'value' in ev.detail
+      ? ev.detail.value
+      : target.value;
+
     if (target.tagName === 'HA-SWITCH') {
       newValue = target.checked;
     } else if (target.tagName === 'HA-TEXTFIELD' && target.type === 'number') {
@@ -971,7 +1060,7 @@ class AccesMassifsHistoryCardEditor extends LitElement {
             label="Entité"
             .value=${this._config.entity || ''}
             .configValue=${'entity'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>
@@ -980,7 +1069,7 @@ class AccesMassifsHistoryCardEditor extends LitElement {
             label="Titre"
             .value=${this._config.title || ''}
             .configValue=${'title'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>
@@ -990,7 +1079,7 @@ class AccesMassifsHistoryCardEditor extends LitElement {
             type="number"
             .value=${this._config.year || new Date().getFullYear()}
             .configValue=${'year'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>

@@ -1124,7 +1124,10 @@ class AccesMassifsForecastCardEditor extends LitElement {
     const configValue = target.configValue;
     if (!configValue) return;
 
-    let newValue = ev.detail ? ev.detail.value : target.value;
+    let newValue = ev.detail && typeof ev.detail === 'object' && 'value' in ev.detail
+      ? ev.detail.value
+      : target.value;
+
     if (target.tagName === 'HA-SWITCH') {
       newValue = target.checked;
     } else if (target.tagName === 'HA-TEXTFIELD' && target.type === 'number') {
@@ -1166,7 +1169,7 @@ class AccesMassifsForecastCardEditor extends LitElement {
             label="Entité unique (ex: sensor.acces_massifs_13_summary)"
             .value=${this._config.entity || ''}
             .configValue=${'entity'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>
@@ -1175,7 +1178,7 @@ class AccesMassifsForecastCardEditor extends LitElement {
             label="Plusieurs entités (séparées par des virgules)"
             .value=${this._config.entities ? this._config.entities.join(', ') : ''}
             .configValue=${'entities'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>
@@ -1184,7 +1187,7 @@ class AccesMassifsForecastCardEditor extends LitElement {
             label="Titre"
             .value=${this._config.title || ''}
             .configValue=${'title'}
-            @input=${this._valueChanged}
+            @change=${this._valueChanged}
             style="width: 100%;"
           ></ha-textfield>
         </div>
@@ -1217,7 +1220,7 @@ class AccesMassifsForecastCardEditor extends LitElement {
               type="number"
               .value=${this._config.map_height || 400}
               .configValue=${'map_height'}
-              @input=${this._valueChanged}
+              @change=${this._valueChanged}
               style="width: 100%;"
             ></ha-textfield>
           </div>

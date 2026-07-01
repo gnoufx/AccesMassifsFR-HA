@@ -120,6 +120,8 @@ Les deux cartes se configurent directement via l'**éditeur visuel graphique** d
 
 Affiche l'état d'accès de vos massifs forestiers sous forme de grille adaptative animée avec pulsation, couplée à une carte Leaflet interactive dessinant les polygones réels de vos massifs.
 
+![Carte Accès & Cartographie](accesmassif.png)
+
 > [!TIP]
 > **Support Multi-Massifs & Centrage Intelligent** : Vous pouvez désormais cibler un sous-ensemble de massifs en fournissant une liste d'entités. La carte s'adaptera automatiquement et ajustera son zoom pour se centrer exclusivement sur les zones sélectionnées !
 
@@ -154,6 +156,8 @@ mode: auto
 ### 2. Carte Historique (`acces-massifs-history-card`)
 
 Affiche une matrice heatmap animée (jours en abscisse, massifs en ordonnée) retraçant l'ensemble des niveaux d'accès sur toute la saison (juin à septembre). Comprend des tooltips détaillés au survol, un focus par clic sur une ligne et une sparkline SVG fluide en bas de carte affichant la tendance d'ouverture des massifs.
+
+![Carte Historique](historiqueacces.png)
 
 ```yaml
 type: custom:acces-massifs-history-card

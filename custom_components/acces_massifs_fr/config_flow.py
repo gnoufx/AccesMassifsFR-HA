@@ -59,10 +59,8 @@ class AccesMassifsConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Accès Massifs Forestiers France."""
 
     VERSION = 1
+    _user_config: dict[str, Any] = {}
 
-    def __init__(self) -> None:
-        """Initialise the config flow."""
-        self._user_config: dict[str, Any] = {}
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None

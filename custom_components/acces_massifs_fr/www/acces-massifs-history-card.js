@@ -5,7 +5,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.0.2';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.0.3';
 
 const ALL_MASSIF_IDS = [
   '131','132','133','134','135','136','137','138','139',
@@ -129,11 +129,20 @@ class AccesMassifsHistoryCard extends LitElement {
 
   _getSortedMassifs() {
     const massifs = this._getMassifs();
-    const entries = ALL_MASSIF_IDS.map(id => ({
+    const massifIds = Object.keys(massifs);
+    const ids = massifIds.length > 0 ? massifIds : ALL_MASSIF_IDS;
+    const entries = ids.map(id => ({
       id,
       name: (massifs[id] && massifs[id].name) ? massifs[id].name : `Massif ${id}`,
+      dept: (massifs[id] && massifs[id].dept) ? massifs[id].dept : '',
+      dept_name: (massifs[id] && massifs[id].dept_name) ? massifs[id].dept_name : '',
     }));
-    entries.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    entries.sort((a, b) => {
+      if (a.dept && b.dept && a.dept !== b.dept) {
+        return a.dept.localeCompare(b.dept, 'fr', { numeric: true });
+      }
+      return a.name.localeCompare(b.name, 'fr');
+    });
     return entries;
   }
 
@@ -200,6 +209,7 @@ class AccesMassifsHistoryCard extends LitElement {
 
   _getSparklineData(yearData, dateKeys, massifId) {
     const sortedMassifs = this._getSortedMassifs();
+    const totalMassifs = sortedMassifs.length || 1;
     return dateKeys.map(dk => {
       if (massifId) {
         const level = this._getLevelForCell(yearData, dk, massifId);
@@ -210,7 +220,7 @@ class AccesMassifsHistoryCard extends LitElement {
         const level = this._getLevelForCell(yearData, dk, m.id);
         if (level === 1 || level === 2) accessible++;
       }
-      return (accessible / 25) * 100;
+      return (accessible / totalMassifs) * 100;
     });
   }
 

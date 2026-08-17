@@ -48,9 +48,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     scan_minute: int = entry.options.get(
         CONF_SCAN_MINUTE, entry.data.get(CONF_SCAN_MINUTE, DEFAULT_SCAN_MINUTE)
     )
-    departments: list[str] = entry.options.get(
-        CONF_DEPARTMENTS, entry.data.get(CONF_DEPARTMENTS, ["13"])
+    raw_departments = entry.options.get(
+        CONF_DEPARTMENTS, entry.data.get(CONF_DEPARTMENTS, DEFAULT_DEPARTMENTS)
     )
+    if isinstance(raw_departments, str):
+        raw_departments = [raw_departments]
+    departments: list[str] = [
+        f"{int(d):02d}" if str(d).isdigit() and len(str(d)) == 1 else str(d)
+        for d in raw_departments
+    ]
 
     # ── Coordinator ────────────────────────────────────────────────────────
     coordinator = AccesMassifsCoordinator(
@@ -192,7 +198,7 @@ async def _async_register_lovelace_resources(hass: HomeAssistant) -> None:
         await resources.async_load()
 
     # Load version dynamically from integration manifest
-    version = "2.0.2"
+    version = "2.0.3"
     try:
 
         integration = await async_get_integration(hass, DOMAIN)

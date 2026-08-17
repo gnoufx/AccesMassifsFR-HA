@@ -150,8 +150,16 @@ class AccesMassifsOptionsFlow(OptionsFlow):
             else:
                 return self.async_create_entry(title="", data=user_input)
 
-        current = self._config_entry.options or self._config_entry.data
-        current_depts = current.get(CONF_DEPARTMENTS, DEFAULT_DEPARTMENTS)
+        current_depts = self._config_entry.options.get(
+            CONF_DEPARTMENTS,
+            self._config_entry.data.get(CONF_DEPARTMENTS, DEFAULT_DEPARTMENTS),
+        )
+        if isinstance(current_depts, str):
+            current_depts = [current_depts]
+        current_depts = [
+            f"{int(d):02d}" if str(d).isdigit() and len(str(d)) == 1 else str(d)
+            for d in current_depts
+        ]
 
         schema = vol.Schema(
             {
@@ -160,11 +168,17 @@ class AccesMassifsOptionsFlow(OptionsFlow):
                 ): _departments_selector(),
                 vol.Required(
                     CONF_SCAN_HOUR,
-                    default=current.get(CONF_SCAN_HOUR, DEFAULT_SCAN_HOUR),
+                    default=self._config_entry.options.get(
+                        CONF_SCAN_HOUR,
+                        self._config_entry.data.get(CONF_SCAN_HOUR, DEFAULT_SCAN_HOUR),
+                    ),
                 ): vol.All(vol.Coerce(int), vol.Range(min=0, max=23)),
                 vol.Required(
                     CONF_SCAN_MINUTE,
-                    default=current.get(CONF_SCAN_MINUTE, DEFAULT_SCAN_MINUTE),
+                    default=self._config_entry.options.get(
+                        CONF_SCAN_MINUTE,
+                        self._config_entry.data.get(CONF_SCAN_MINUTE, DEFAULT_SCAN_MINUTE),
+                    ),
                 ): vol.All(vol.Coerce(int), vol.Range(min=0, max=59)),
                 vol.Optional(
                     CONF_DOWNLOAD_HISTORY,

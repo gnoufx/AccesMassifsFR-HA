@@ -62,11 +62,15 @@ class AccesMassifsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.storage = storage
         self.scan_hour = scan_hour
         self.scan_minute = scan_minute
-        self.departments = departments
+        # Normalize department codes (e.g. '4' -> '04')
+        self.departments = [
+            f"{int(d):02d}" if str(d).isdigit() and len(str(d)) == 1 else str(d)
+            for d in departments
+        ]
 
         # Pre-compute the massif IDs to monitor (from selected departments)
         self.monitored_massif_ids: list[str] = []
-        for dept in departments:
+        for dept in self.departments:
             self.monitored_massif_ids.extend(MASSIFS_BY_DEPT.get(dept, []))
 
         super().__init__(
@@ -158,16 +162,46 @@ class AccesMassifsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
     @staticmethod
     def _parse_massif_data(
-        raw: dict[str, Any] | None, massif_id: str
+        raw: dict[str, Any] | None, massif_id: str, dept: str | None = None
     ) -> tuple[int, int]:
         """Extract *(level, procedure)* for a massif from a raw JSON payload.
 
+        Handles various ID representations across departmental data feeds.
         Returns ``(0, 0)`` when data is missing.
         """
         if raw is None:
             return (0, 0)
         massifs_raw = raw.get("massifs", {})
-        entry = massifs_raw.get(massif_id)
+        if not isinstance(massifs_raw, dict):
+            return (0, 0)
+
+        # Build candidate keys to look up in the department's JSON payload
+        candidates: list[str] = [massif_id]
+        if massif_id.isdigit():
+            candidates.append(str(int(massif_id)))
+
+        if dept:
+            dept_str = str(dept)
+            p1 = dept_str
+            p2 = str(int(dept_str)) if dept_str.isdigit() else dept_str
+            if massif_id.startswith(p1):
+                sub = massif_id[len(p1):]
+                candidates.extend([sub, str(int(sub)) if sub.isdigit() else sub])
+            if massif_id.startswith(p2):
+                sub = massif_id[len(p2):]
+                candidates.extend([sub, str(int(sub)) if sub.isdigit() else sub])
+            if dept_str == "20":
+                for cp in ("20", "21", "2A", "2B"):
+                    if massif_id.startswith(cp):
+                        sub = massif_id[len(cp):]
+                        candidates.extend([sub, str(int(sub)) if sub.isdigit() else sub])
+
+        entry = None
+        for cand in candidates:
+            if cand in massifs_raw:
+                entry = massifs_raw[cand]
+                break
+
         if entry is None or not isinstance(entry, list) or len(entry) < 2:
             return (0, 0)
         try:
@@ -218,13 +252,17 @@ class AccesMassifsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
             # Today's level and procedure
             if dept_raw_today is not None:
-                today_level, today_proc = self._parse_massif_data(dept_raw_today, m_id)
+                today_level, today_proc = self._parse_massif_data(
+                    dept_raw_today, m_id, dept
+                )
             else:
                 today_level, today_proc = (1 if not in_season else 0), 0
 
             # Tomorrow's level and procedure
             if dept_raw_tomorrow is not None:
-                tmrw_level, tmrw_proc = self._parse_massif_data(dept_raw_tomorrow, m_id)
+                tmrw_level, tmrw_proc = self._parse_massif_data(
+                    dept_raw_tomorrow, m_id, dept
+                )
             else:
                 tmrw_level, tmrw_proc = (1 if not in_season else 0), 0
 
@@ -341,7 +379,7 @@ class AccesMassifsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 dept = str(m_info["dept"])
                 raw_dept = raw_depts.get(dept)
                 if raw_dept is not None:
-                    level, proc = self._parse_massif_data(raw_dept, m_id)
+                    level, proc = self._parse_massif_data(raw_dept, m_id, dept)
                 else:
                     level, proc = 0, 0
 

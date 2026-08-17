@@ -2,7 +2,7 @@
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.1.0+-blue.svg)](https://www.home-assistant.io)
-[![Version](https://img.shields.io/badge/Version-2.0.2-green.svg)](https://github.com/gnoufx/AccesMassif13-HA)
+[![Version](https://img.shields.io/badge/Version-2.0.3-green.svg)](https://github.com/gnoufx/AccesMassif13-HA)
 
 Intégration Home Assistant personnalisée et haut de gamme pour surveiller automatiquement les **niveaux d'accès aux 179 massifs forestiers de 15 départements en France** depuis les sites officiels des Préfectures : [risque-prevention-incendie.fr](https://www.risque-prevention-incendie.fr/).
 

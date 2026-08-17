@@ -3,14 +3,16 @@
   "name": "Accès Massifs Forestiers France",
   "codeowners": [],
   "config_flow": true,
-  "documentation": "https://github.com/acces-massifs-fr-ha",
+  "documentation": "https://github.com/gnoufx/AccesMassif13-HA",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/acces-massifs-fr-ha/issues",
+  "issue_tracker": "https://github.com/gnoufx/AccesMassif13-HA/issues",
   "dependencies": [
     "frontend",
     "http"
   ],
   "requirements": [],
-  "homeassistant": "2026.5.0",
-  "version": "2.0.1"
+  "homeassistant": "2024.1.0",
+  "version": "2.0.2"
 }
+
+

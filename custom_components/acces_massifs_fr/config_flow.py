@@ -10,9 +10,13 @@ import voluptuous as vol
 from homeassistant.config_entries import (
     ConfigEntry,
     ConfigFlow,
-    ConfigFlowResult,
     OptionsFlow,
 )
+try:
+    from homeassistant.config_entries import ConfigFlowResult
+except ImportError:
+    from homeassistant.data_entry_flow import FlowResult as ConfigFlowResult  # type: ignore[attr-defined]
+
 from homeassistant.core import callback
 from homeassistant.helpers.selector import (
     BooleanSelector,
@@ -37,11 +41,9 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-# Default departments pre-selected (the original 13 for users migrating)
-DEFAULT_DEPARTMENTS = ["13"]
-
 
 def _departments_selector() -> SelectSelector:
+
     """Return a multi-select selector for departments."""
     return SelectSelector(
         SelectSelectorConfig(

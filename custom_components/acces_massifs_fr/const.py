@@ -26,6 +26,8 @@ CONF_SCAN_MINUTE = "scan_minute"
 CONF_DEPARTMENTS = "departments"
 CONF_DOWNLOAD_HISTORY = "download_history"
 DEFAULT_DOWNLOAD_HISTORY = True
+DEFAULT_DEPARTMENTS: list[str] = ["13"]
+
 
 
 # ── Departments registry ────────────────────────────────────────────────────────

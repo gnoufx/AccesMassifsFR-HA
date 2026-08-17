@@ -5,7 +5,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.0.1';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.0.2';
 
 const ALL_MASSIF_IDS = [
   '131','132','133','134','135','136','137','138','139',

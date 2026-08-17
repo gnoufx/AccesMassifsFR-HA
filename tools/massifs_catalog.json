@@ -1,0 +1,897 @@
+{
+  "41": {
+    "name": "ROUGON",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "42": {
+    "name": "ESPARRON-DE-VERDON",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "43": {
+    "name": "MONTAGNAC-MONTPEZAT",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "44": {
+    "name": "CASTELLANE",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "45": {
+    "name": "GREOUX-LES-BAINS",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "46": {
+    "name": "QUINSON",
+    "dept": "04",
+    "geomType": "MultiPolygon"
+  },
+  "61": {
+    "name": "LITTORAL EST",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "62": {
+    "name": "MOYEN PAYS OUEST",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "63": {
+    "name": "HAUT PAYS",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "64": {
+    "name": "MOYEN PAYS OUEST",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "65": {
+    "name": "LITTORAL OUEST",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "66": {
+    "name": "TANNERON",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "67": {
+    "name": "HAUT ESTERON",
+    "dept": "06",
+    "geomType": "MultiPolygon"
+  },
+  "71": {
+    "name": "Haut Vivarais",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "72": {
+    "name": "Boutières",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "73": {
+    "name": "Haut Plateau Nord",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "74": {
+    "name": "Cévennes",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "75": {
+    "name": "Bas Vivarais",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "76": {
+    "name": "Vallée du Rhône Sud",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "77": {
+    "name": "Haut plateau Sud",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "78": {
+    "name": "Vallée du Rhône Nord",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "79": {
+    "name": "Coiron",
+    "dept": "07",
+    "geomType": "MultiPolygon"
+  },
+  "111": {
+    "name": "Clape",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "112": {
+    "name": "FONTFROIDE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "113": {
+    "name": "PINEDES CREMADES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "114": {
+    "name": "CORBIERES MARITIMES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "115": {
+    "name": "CAVAYERE DROITE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "116": {
+    "name": "MINERVOIS",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "117": {
+    "name": "PLAINE DU MINERVOIS",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "118": {
+    "name": "LEZIGNANAIS",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "119": {
+    "name": "CORBIERES OCCIDENTALES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "131": {
+    "name": "Alpilles",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "132": {
+    "name": "Arbois",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "133": {
+    "name": "Calanques",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "134": {
+    "name": "Cap Canaille",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "135": {
+    "name": "Castillon",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "136": {
+    "name": "Chaine des Cotes",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "137": {
+    "name": "Chambremont",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "138": {
+    "name": "Collines de Gardanne",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "139": {
+    "name": "Concors",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "171": {
+    "name": "Secteur 1 – Îles et littoral",
+    "dept": "17",
+    "geomType": "MultiPolygon"
+  },
+  "172": {
+    "name": "Secteur 2 – Saintonge et Aunis",
+    "dept": "17",
+    "geomType": "MultiPolygon"
+  },
+  "173": {
+    "name": "Secteur 3 – Forêt de la Lande et estuaire",
+    "dept": "17",
+    "geomType": "MultiPolygon"
+  },
+  "174": {
+    "name": "Secteur 4 – Double Saintongeaise",
+    "dept": "17",
+    "geomType": "MultiPolygon"
+  },
+  "202": {
+    "name": "STELLA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "206": {
+    "name": "ASCO",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "207": {
+    "name": "PIANA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "208": {
+    "name": "LONCA-AITONE-SERRIERA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "209": {
+    "name": "VALDU-NIELLU ALBERTACCE",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "211": {
+    "name": "AGRIATES OUEST",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "213": {
+    "name": "BONIFATO",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "214": {
+    "name": "TARTAGINE-MELAJA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "215": {
+    "name": "FANGO",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "261": {
+    "name": "NORD VALLÉE DU RHÔNE",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "262": {
+    "name": "ROYANS-VERCORS",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "263": {
+    "name": "VALLÉE DE LA DRÔME",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "264": {
+    "name": "HAUT-DIOIS",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "265": {
+    "name": "SUD VALLÉE DU RHÔNE",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "266": {
+    "name": "PAYS DE DIEULEFIT / HAUTE-ROANNE OULE",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "267": {
+    "name": "NYONSAIS",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "268": {
+    "name": "HAUTES-BARONNIES",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "269": {
+    "name": "UCHAUX BARRY",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "301": {
+    "name": "CAUSSE AIGOUAL",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "302": {
+    "name": "SUD CEVENNES",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "303": {
+    "name": "NORD CEVENNES",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "304": {
+    "name": "GARDON VIDOURLE",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "305": {
+    "name": "VAL DE CEZE",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "306": {
+    "name": "GARRIGUES",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "307": {
+    "name": "COSTIERES PETITE CAMARGUE",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "308": {
+    "name": "GARD RHODANIEN",
+    "dept": "30",
+    "geomType": "MultiPolygon"
+  },
+  "341": {
+    "name": "SOMAIL-ESPINOUSE-ET-MONTS-D-ORB",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "342": {
+    "name": "ESCANDORGUE-ET-LARZAC",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "343": {
+    "name": "GANGEOIS",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "344": {
+    "name": "GARRIGUES-ET-PINEDES-EST-HERAULTAIS",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "345": {
+    "name": "COLLINES-CENTRE",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "346": {
+    "name": "MINERVOIS-ET-ST-CHINIANAIS",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "347": {
+    "name": "PLAINE-VITICOLE-COEUR-HERAULT-PLAINES",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "348": {
+    "name": "GARDIOLE",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "349": {
+    "name": "PLAINE-VITICOLE-EST-HERAULTAIS",
+    "dept": "34",
+    "geomType": "MultiPolygon"
+  },
+  "421": {
+    "name": "Plaine Roannaise",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "422": {
+    "name": "Monts du Lyonnais",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "423": {
+    "name": "Monts du Beaujolais",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "424": {
+    "name": "Plateau de Neulise",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "425": {
+    "name": "Monts du Forez",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "426": {
+    "name": "Plaine du Forez",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "427": {
+    "name": "Monts du Jarez et Bassin Stephanois",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "428": {
+    "name": "Vallée du Rhône",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "429": {
+    "name": "Monts du Pilat",
+    "dept": "42",
+    "geomType": "MultiPolygon"
+  },
+  "661": {
+    "name": "CAPCIR",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "662": {
+    "name": "CERDAGNE",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "663": {
+    "name": "CONFLENT",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "664": {
+    "name": "FENOUILLEDES",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "665": {
+    "name": "ASPRES",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "666": {
+    "name": "VALLESPIR",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "667": {
+    "name": "ROUSSILLON",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "668": {
+    "name": "ALBERES",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "669": {
+    "name": "CORBIERES",
+    "dept": "66",
+    "geomType": "Polygon"
+  },
+  "811": {
+    "name": "Grésigne et Causses",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "812": {
+    "name": "Ségala et Monts d'Alban",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "813": {
+    "name": "Monts de Lacaune",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "814": {
+    "name": "Sidobre Vallée du Thoré",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "815": {
+    "name": "Montagne Noire",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "816": {
+    "name": "Plaines",
+    "dept": "81",
+    "geomType": "MultiPolygon"
+  },
+  "831": {
+    "name": "MONTS TOULONNAIS",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "832": {
+    "name": "SAINTE BAUME",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "833": {
+    "name": "HAUT VAR",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "834": {
+    "name": "CORNICHE DES MAURES",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "835": {
+    "name": "MAURES",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "836": {
+    "name": "CENTRE VAR",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "837": {
+    "name": "PLATEAU DE CANJUERS",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "838": {
+    "name": "ESTEREL",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "839": {
+    "name": "ILES D'HYERES",
+    "dept": "83",
+    "geomType": "MultiPolygon"
+  },
+  "841": {
+    "name": "Massif de Bollene-Uchaux",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "842": {
+    "name": "Massif des collines du pays Voconce",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "843": {
+    "name": "Massif du Mont Ventoux",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "844": {
+    "name": "Massif de Rasteau-Cairanne",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "845": {
+    "name": "Massif de l'enclave des papes",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "846": {
+    "name": "Massif des collines Basse Durance",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "847": {
+    "name": "Massif de la plaine du Comtat",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "848": {
+    "name": "Massif de Cadenet-Villelaure",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "849": {
+    "name": "Massif de la vallee du Rhone",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "1110": {
+    "name": "CORBIERES CENTRALES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1111": {
+    "name": "VALLEE DE L'ORBIEU",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1112": {
+    "name": "VALLEE DU LAUQUET",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1113": {
+    "name": "CABARDES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1114": {
+    "name": "CONTREFORTS OUEST MONTAGNE NOIRE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1115": {
+    "name": "MALEPERE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1116": {
+    "name": "RAZES-HAUTE VALLEE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1117": {
+    "name": "CHALABRAIS",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1118": {
+    "name": "PIEGE - LAURAGAIS",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1119": {
+    "name": "BASSES PLAINES",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1120": {
+    "name": "MONTAGNE NOIRE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1121": {
+    "name": "PAYS DE SAULT",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1122": {
+    "name": "ÎLE DE SAINTE-LUCIE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1123": {
+    "name": "CAVAYERE GAUCHE",
+    "dept": "11",
+    "geomType": "MultiPolygon"
+  },
+  "1310": {
+    "name": "Cote Bleue",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1311": {
+    "name": "Etoile",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1312": {
+    "name": "Garlaban",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1313": {
+    "name": "Grand Caunet",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1314": {
+    "name": "Lançon",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1315": {
+    "name": "Les Roques",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1316": {
+    "name": "Montagnette",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1317": {
+    "name": "Montaiguet",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1318": {
+    "name": "Pont de Rhaud",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1319": {
+    "name": "Quatre Termes",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1320": {
+    "name": "Regagnas",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1321": {
+    "name": "Rougadou",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1322": {
+    "name": "Sainte-Baume",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1323": {
+    "name": "Sainte-Victoire",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1324": {
+    "name": "Sulauze",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1325": {
+    "name": "Trevaresse",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "1327": {
+    "name": "Montagnette Partie Incendiée",
+    "dept": "13",
+    "geomType": "MultiPolygon"
+  },
+  "2010": {
+    "name": "RESTONICA-TAVIGNANO",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2011": {
+    "name": "LIBBIU",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2012": {
+    "name": "VERO-TAVERA -UCCIANI",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2015": {
+    "name": "ROSPA SORBA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2016": {
+    "name": "VIZZAVONA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2017": {
+    "name": "GHISONI",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2018": {
+    "name": "SAINT ANTOINE",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2019": {
+    "name": "FIUMORBO",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2021": {
+    "name": "TOVA-SOLARO-CHISA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2022": {
+    "name": "COTI-CHIAVARI",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2023": {
+    "name": "VALLE MALE",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2024": {
+    "name": "BAVELLA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2025": {
+    "name": "ZONZA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2026": {
+    "name": "CAVU",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2027": {
+    "name": "OSPEDALE",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2028": {
+    "name": "CAGNA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2113": {
+    "name": "VERGHELLU",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2114": {
+    "name": "MANGANELLU",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2120": {
+    "name": "PINIA",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2129": {
+    "name": "AGRIATES EST",
+    "dept": "20",
+    "geomType": "MultiPolygon"
+  },
+  "2610": {
+    "name": "VENTOUX TOULOURENC",
+    "dept": "26",
+    "geomType": "MultiPolygon"
+  },
+  "8410": {
+    "name": "Massif du petit Luberon",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "8411": {
+    "name": "Massif du grand Luberon",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "8412": {
+    "name": "Massif des dentelles de Montmirail",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "8413": {
+    "name": "Massif des Monts de Vaucluse",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "8414": {
+    "name": "Massif de la vallee d'Apt",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  },
+  "8415": {
+    "name": "Massif du Mont Ventoux Sommet",
+    "dept": "84",
+    "geomType": "MultiPolygon"
+  }
+}

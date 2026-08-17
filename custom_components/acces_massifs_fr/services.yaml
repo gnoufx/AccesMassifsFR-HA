@@ -1,0 +1,19 @@
+force_update:
+  name: "Forcer la mise à jour"
+  description: "Force la mise à jour immédiate des données d'accès aux massifs."
+
+download_history:
+  name: "Télécharger l'historique"
+  description: "Télécharge l'historique des accès aux massifs pour l'année en cours (ou une année spécifique) pour les départements configurés."
+  fields:
+    year:
+      name: "Année"
+      description: "Année de la saison à télécharger (ex: 2026). Laissez vide pour l'année en cours."
+      required: false
+      example: 2026
+      selector:
+        number:
+          min: 2020
+          max: 2030
+          mode: box
+

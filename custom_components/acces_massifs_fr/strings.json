@@ -1,0 +1,70 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Accès Massifs Forestiers France",
+        "description": "Sélectionnez les départements à surveiller et configurez l'heure de récupération des données.",
+        "data": {
+          "departments": "Départements à surveiller",
+          "scan_hour": "Heure de mise à jour (défaut : 18h)",
+          "scan_minute": "Minute de mise à jour"
+        }
+      },
+      "download_history": {
+        "title": "Historique de l'année en cours",
+        "description": "Souhaitez-vous télécharger l'historique des accès aux massifs pour la saison de l'année en cours pour les départements sélectionnés ?\n\nCela permet d'alimenter immédiatement la carte Lovelace d'historique avec les données passées de la saison.",
+        "data": {
+          "download_history": "Télécharger l'historique de l'année en cours"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "L'intégration est déjà configurée.",
+      "no_departments": "Veuillez sélectionner au moins un département."
+    },
+    "error": {
+      "no_departments": "Veuillez sélectionner au moins un département."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options — Accès Massifs Forestiers France",
+        "description": "Modifiez les départements surveillés et l'heure de récupération.",
+        "data": {
+          "departments": "Départements à surveiller",
+          "scan_hour": "Heure de mise à jour",
+          "scan_minute": "Minute de mise à jour",
+          "download_history": "Télécharger / actualiser l'historique de l'année en cours"
+        }
+      }
+    },
+    "error": {
+      "no_departments": "Veuillez sélectionner au moins un département."
+    }
+  },
+  "entity": {
+    "time": {
+      "scan_time": {
+        "name": "Heure de récupération"
+      }
+    }
+  },
+  "services": {
+    "download_history": {
+      "name": "Télécharger l'historique",
+      "description": "Télécharge l'historique des accès aux massifs pour l'année en cours (ou une année spécifique) pour les départements configurés.",
+      "fields": {
+        "year": {
+          "name": "Année",
+          "description": "Année de la saison à télécharger (ex: 2026). Laissez vide pour l'année en cours."
+        }
+      }
+    },
+    "force_update": {
+      "name": "Forcer la mise à jour",
+      "description": "Force la mise à jour immédiate des données d'accès aux massifs."
+    }
+  }
+}
+

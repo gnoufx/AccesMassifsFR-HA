@@ -13,7 +13,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '1.1.0';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.0.0';
 
 class AccesMassifsForecastCard extends LitElement {
   static get properties() {

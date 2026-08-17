@@ -17,6 +17,7 @@ from .const import (
     CONF_DOWNLOAD_HISTORY,
     CONF_SCAN_HOUR,
     CONF_SCAN_MINUTE,
+    DEFAULT_DEPARTMENTS,
     DEFAULT_SCAN_HOUR,
     DEFAULT_SCAN_MINUTE,
     DOMAIN,
@@ -198,7 +199,7 @@ async def _async_register_lovelace_resources(hass: HomeAssistant) -> None:
         await resources.async_load()
 
     # Load version dynamically from integration manifest
-    version = "2.0.3"
+    version = "2.0.4"
     try:
 
         integration = await async_get_integration(hass, DOMAIN)

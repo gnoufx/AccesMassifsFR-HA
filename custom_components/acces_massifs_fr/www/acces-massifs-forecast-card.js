@@ -36,7 +36,8 @@ class AccesMassifsForecastCard extends LitElement {
     this._lastAccessibleCount = -1;
     this._resizeObserver = null;
     this._cardWidth = 800;
-    this._geoJsonData = null;
+    this._geoJsonData = null;      // FeatureCollection fusionnée chargée à la demande
+    this._loadedDepts = new Set(); // départements dont le GeoJSON est déjà chargé
   }
 
   static getConfigElement() {
@@ -224,6 +225,92 @@ class AccesMassifsForecastCard extends LitElement {
     return this._leafletLoading;
   }
 
+  // ── GeoJSON chargement par département ───────────────────
+
+  /**
+   * Détermine les départements nécessaires à partir des entités configurées,
+   * puis charge uniquement les fichiers GeoJSON manquants en parallèle.
+   * Les features sont accumulées dans this._geoJsonData.
+   */
+  async _loadGeoJsonForCurrentDepts() {
+    const depts = this._getRequiredDepts();
+    if (depts.size === 0) return;
+
+    // Filtrer les départements non encore chargés
+    const missing = [...depts].filter((d) => !this._loadedDepts.has(d));
+    if (missing.length === 0) return;
+
+    const baseUrls = [
+      `/local/community/acces_massifs_fr`,
+      `/hacsfiles/acces_massifs_fr`,
+    ];
+
+    // Charger tous les fichiers manquants en parallèle
+    const results = await Promise.allSettled(
+      missing.map(async (dept) => {
+        for (const base of baseUrls) {
+          try {
+            const res = await fetch(`${base}/massifs_${dept}.geojson?v=${cardVersion}`);
+            if (res.ok) {
+              const fc = await res.json();
+              return { dept, features: fc.features || [] };
+            }
+          } catch (_) { /* essayer le prochain baseUrl */ }
+        }
+        console.warn(`AccesMassifs: GeoJSON introuvable pour le département ${dept}`);
+        return { dept, features: [] };
+      })
+    );
+
+    // Fusionner les nouvelles features dans this._geoJsonData
+    if (!this._geoJsonData) {
+      this._geoJsonData = { type: 'FeatureCollection', features: [] };
+    }
+    for (const r of results) {
+      if (r.status === 'fulfilled' && r.value) {
+        this._geoJsonData.features.push(...r.value.features);
+        this._loadedDepts.add(r.value.dept);
+      }
+    }
+  }
+
+  /**
+   * Retourne un Set des codes de départements nécessaires
+   * d'après les entités configurées.
+   */
+  _getRequiredDepts() {
+    const depts = new Set();
+    if (!this.hass) return depts;
+
+    const collectFromAttrs = (attrs) => {
+      if (!attrs) return;
+      // Entité résumé multi-dept
+      if (Array.isArray(attrs.departments)) {
+        attrs.departments.forEach((d) => depts.add(String(d)));
+        return;
+      }
+      // Entité individuelle (massif unique) — utilise dept ou extrait depuis massif_id
+      if (attrs.dept) {
+        depts.add(String(attrs.dept));
+        return;
+      }
+      // Fallback : essayer de retrouver le dept via le catalog massifs (const.py)
+      // Si on ne peut pas déterminer le dept, on ne charge rien (la carte tombera en mode cercles)
+    };
+
+    if (this.config.entities && this.config.entities.length > 0) {
+      for (const ent of this.config.entities) {
+        const s = this.hass.states[ent];
+        collectFromAttrs(s?.attributes);
+      }
+    } else if (this.config.entity) {
+      const s = this.hass.states[this.config.entity];
+      collectFromAttrs(s?.attributes);
+    }
+
+    return depts;
+  }
+
   async _initMap() {
     if (this._map) return;
     if (!this.config.show_map) return;
@@ -233,20 +320,8 @@ class AccesMassifsForecastCard extends LitElement {
     const container = this.shadowRoot.querySelector(`#${this._mapId}`);
     if (!container || !window.L) return;
 
-    // Load GeoJSON data if not already cached
-    if (!this._geoJsonData) {
-      try {
-        let response = await fetch(`/local/community/acces_massifs_fr/massifs_france.geojson?v=${cardVersion}`);
-        if (!response.ok) {
-          response = await fetch(`/hacsfiles/acces_massifs_fr/massifs_france.geojson?v=${cardVersion}`);
-        }
-        if (response.ok) {
-          this._geoJsonData = await response.json();
-        }
-      } catch (err) {
-        console.warn('Failed to load massifs GeoJSON:', err);
-      }
-    }
+    // Load GeoJSON data — only the departments needed by the configured entities
+    await this._loadGeoJsonForCurrentDepts();
 
     // Inject Leaflet CSS into shadow DOM so popups/controls render correctly
     const leafletCSS = document.createElement('link');

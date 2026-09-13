@@ -13,7 +13,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.5.0';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.5.1';
 
 class AccesMassifsForecastCard extends LitElement {
   static get properties() {
@@ -356,10 +356,11 @@ class AccesMassifsForecastCard extends LitElement {
     });
 
     const isDarkMode = this._isDarkMode();
-    this._currentTileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    // Utilisation d'Esri World Street Map car l'application mobile HA est bloquée par OSM
+    this._currentTileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
 
     this._tileLayer = L.tileLayer(this._currentTileUrl, {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      attribution: 'Tiles &copy; Esri',
       maxZoom: 19,
       className: isDarkMode ? 'map-tiles-dark' : ''
     }).addTo(this._map);

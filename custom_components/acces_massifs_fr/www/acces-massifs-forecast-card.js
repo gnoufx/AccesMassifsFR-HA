@@ -13,7 +13,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.0.4';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.5.0';
 
 class AccesMassifsForecastCard extends LitElement {
   static get properties() {
@@ -67,6 +67,7 @@ class AccesMassifsForecastCard extends LitElement {
       map_height: config.map_height || 400,
       animate: config.animate !== false,
       mode: config.mode || 'auto', // 'auto' | 'today' | 'tomorrow'
+      carto_api_key: config.carto_api_key || '',
     };
   }
 
@@ -355,14 +356,12 @@ class AccesMassifsForecastCard extends LitElement {
     });
 
     const isDarkMode = this._isDarkMode();
-    this._currentTileUrl = isDarkMode
-      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-      : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    this._currentTileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     this._tileLayer = L.tileLayer(this._currentTileUrl, {
-      attribution: '&copy; OpenStreetMap, &copy; CARTO',
-      subdomains: 'abcd',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
+      className: isDarkMode ? 'map-tiles-dark' : ''
     }).addTo(this._map);
 
     this._updateMapMarkers();
@@ -598,12 +597,13 @@ class AccesMassifsForecastCard extends LitElement {
     } else if (this._map) {
       if (this._tileLayer) {
         const isDarkMode = this._isDarkMode();
-        const tileUrl = isDarkMode
-          ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-          : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-        if (this._currentTileUrl !== tileUrl) {
-          this._tileLayer.setUrl(tileUrl);
-          this._currentTileUrl = tileUrl;
+        const container = this._tileLayer.getContainer();
+        if (container) {
+          if (isDarkMode) {
+            container.classList.add('map-tiles-dark');
+          } else {
+            container.classList.remove('map-tiles-dark');
+          }
         }
       }
       this._updateMapMarkers();
@@ -633,6 +633,10 @@ class AccesMassifsForecastCard extends LitElement {
         font-family: var(--paper-font-common-typography_-_font-family, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+      }
+
+      .map-tiles-dark {
+        filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
       }
 
       .card-container {

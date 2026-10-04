@@ -13,7 +13,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.5.1';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.5.6';
 
 class AccesMassifsForecastCard extends LitElement {
   static get properties() {
@@ -81,7 +81,40 @@ class AccesMassifsForecastCard extends LitElement {
     return this._hass;
   }
 
+  _isSeason(attrs) {
+    if (attrs && typeof attrs.is_season === 'boolean') {
+      return attrs.is_season;
+    }
+    // Fallback : saison active du 31 mai au 30 septembre inclus
+    const now = new Date();
+    const m = now.getMonth() + 1;
+    const d = now.getDate();
+    if (m === 5 && d >= 31) return true;
+    if (m >= 6 && m <= 9) return true;
+    return false;
+  }
+
+  _destroyMap() {
+    if (this._map) {
+      try {
+        this._map.remove();
+      } catch (_) {}
+      this._map = null;
+    }
+    this._tileLayer = null;
+    this._currentTileUrl = null;
+    this._markers = [];
+    this._geoJsonData = null;
+    if (this._loadedDepts) {
+      this._loadedDepts.clear();
+    }
+  }
+
   getCardSize() {
+    const stateObj = this._getStateObj();
+    if (!this._isSeason(stateObj?.attributes)) {
+      return 1;
+    }
     return this.config?.show_map ? 8 : 5;
   }
 
@@ -234,6 +267,9 @@ class AccesMassifsForecastCard extends LitElement {
    * Les features sont accumulées dans this._geoJsonData.
    */
   async _loadGeoJsonForCurrentDepts() {
+    const stateObj = this._getStateObj();
+    if (!this._isSeason(stateObj?.attributes)) return;
+
     const depts = this._getRequiredDepts();
     if (depts.size === 0) return;
 
@@ -315,6 +351,9 @@ class AccesMassifsForecastCard extends LitElement {
   async _initMap() {
     if (this._map) return;
     if (!this.config.show_map) return;
+
+    const stateObj = this._getStateObj();
+    if (!this._isSeason(stateObj?.attributes)) return;
 
     await this._loadLeaflet();
 
@@ -557,16 +596,25 @@ class AccesMassifsForecastCard extends LitElement {
   // ── Lifecycle ────────────────────────────────────────────
 
   firstUpdated() {
-    // Set up resize observer for responsive grid
+    const stateObj = this._getStateObj();
+    const isSeason = this._isSeason(stateObj?.attributes);
+
+    // Set up resize observer for responsive grid (only updates when in season)
     this._resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        this._cardWidth = entry.contentRect.width;
-        this.requestUpdate();
+        const w = entry.contentRect.width;
+        if (Math.abs(this._cardWidth - w) > 20) {
+          this._cardWidth = w;
+          const sObj = this._getStateObj();
+          if (this._isSeason(sObj?.attributes)) {
+            this.requestUpdate();
+          }
+        }
       }
     });
     this._resizeObserver.observe(this);
 
-    if (this.config.show_map) {
+    if (isSeason && this.config.show_map) {
       setTimeout(() => this._initMap(), 150);
     }
   }
@@ -576,6 +624,15 @@ class AccesMassifsForecastCard extends LitElement {
 
     const stateObj = this._getStateObj();
     if (!stateObj) return;
+
+    const isSeason = this._isSeason(stateObj.attributes);
+
+    // Optimisation mémoire : en mode hors saison, libérer immédiatement la carte et ne rien calculer
+    if (!isSeason) {
+      this._destroyMap();
+      return;
+    }
+
     const massifs = this._getMassifs(stateObj);
     if (!massifs) return;
 
@@ -613,12 +670,7 @@ class AccesMassifsForecastCard extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    if (this._map) {
-      this._map.remove();
-      this._map = null;
-    }
-    this._tileLayer = null;
-    this._currentTileUrl = null;
+    this._destroyMap();
     if (this._resizeObserver) {
       this._resizeObserver.disconnect();
       this._resizeObserver = null;
@@ -886,6 +938,14 @@ class AccesMassifsForecastCard extends LitElement {
       }
 
       /* ── Off-Season Banner ── */
+      .card-container.off-season-mode {
+        padding: 16px;
+      }
+
+      .card-container.off-season-mode .off-season-banner {
+        margin-bottom: 0;
+      }
+
       .off-season-banner {
         background: rgba(var(--rgb-info-color, 33, 150, 243), 0.1);
         border: 1px solid var(--info-color, rgba(33, 150, 243, 0.25));
@@ -988,7 +1048,17 @@ class AccesMassifsForecastCard extends LitElement {
     }
 
     const attrs = stateObj.attributes;
-    const isSeason = attrs.is_season;
+    const isSeason = this._isSeason(attrs);
+
+    // En mode hors saison : afficher UNIQUEMENT le message hors saison (optimisation mémoire)
+    if (!isSeason) {
+      return html`
+        <div class="card-container off-season-mode">
+          ${this._renderOffSeasonBanner(isSeason)}
+        </div>
+      `;
+    }
+
     const massifs = this._getMassifs(stateObj);
 
     if (!massifs || Object.keys(massifs).length === 0) {
@@ -1003,7 +1073,6 @@ class AccesMassifsForecastCard extends LitElement {
     return html`
       <div class="card-container">
         ${this._renderHeader(attrs, massifs)}
-        ${this._renderOffSeasonBanner(isSeason)}
         ${this._renderGrid(attrs, massifs)}
         ${this.config.show_map ? this._renderMap() : ''}
         ${this._renderLegend()}
@@ -1012,7 +1081,7 @@ class AccesMassifsForecastCard extends LitElement {
   }
 
   _renderOffSeasonBanner(isSeason) {
-    if (isSeason !== false) return '';
+    if (isSeason === true) return '';
     return html`
       <div class="off-season-banner">
         <span class="banner-icon">❄️</span>

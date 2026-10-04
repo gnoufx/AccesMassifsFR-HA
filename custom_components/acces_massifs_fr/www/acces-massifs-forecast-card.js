@@ -13,7 +13,7 @@ const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
 const scriptUrl = new URL(import.meta.url);
-const cardVersion = scriptUrl.searchParams.get('v') || '2.5.6';
+const cardVersion = scriptUrl.searchParams.get('v') || '2.5.7';
 
 class AccesMassifsForecastCard extends LitElement {
   static get properties() {
@@ -369,7 +369,6 @@ class AccesMassifsForecastCard extends LitElement {
     leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
     this.shadowRoot.appendChild(leafletCSS);
 
-    const stateObj = this._getStateObj();
     const attrs = stateObj ? stateObj.attributes : {};
     const isIndividual = !this.config.entities && attrs && attrs.massif_id !== undefined;
     const departments = attrs.departments || [];
